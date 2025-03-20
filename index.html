@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The AC Merchants - Animal Company VR Trading</title>
+    <style>
+        :root {
+            --primary: #3a86ff;
+            --secondary: #8338ec;
+            --accent: #ff006e;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #38b000;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #121212;
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 20px 0;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            width: 180px;
+            height: 180px;
+            border-radius: 10px;
+            background-color: #2a2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            overflow: hidden;
+            border: 3px solid var(--accent);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .logo-upload {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-upload label {
+            background-color: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .logo-upload label:hover {
+            background-color: #ff0080;
+            transform: translateY(-2px);
+        }
+        
+        .logo-upload input {
+            display: none;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 10px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .section {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-left: 4px solid var(--primary);
+        }
+        
+        h2 {
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-size: 1.8rem;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        
+        .about-text {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .member-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .member-card {
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+        
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+        
+        .member-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+        
+        .member-code {
+            font-family: 'Courier New', monospace;
+            background-color: #333;
+            padding: 8px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+            color: #72ceff;
+            position: relative;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: var(--dark);
+            color: var(--light);
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            padding: 3px 6px;
+        }
+        
+        .trade-info {
+            margin-top: 15px;
+        }
+        
+        .trade-section {
+            margin-bottom: 10px;
+        }
+        
+        .trade-title {
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .rarity-common {
+            color: #aaa;
+        }
+        
+        .rarity-uncommon {
+            color: #4cd137;
+        }
+        
+        .rarity-rare {
+            color: #3498db;
+        }
+        
+        .rarity-epic {
+            color: #9b59b6;
+        }
+        
+        .rarity-legendary {
+            color: #f39c12;
+        }
+        
+        .rules-list {
+            padding-left: 20px;
+        }
+        
+        .rules-list li {
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            background-color: #1a1a1a;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top: 1px solid #333;
+        }
+        
+        .social-links {
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            color: var(--light);
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+        }
+        
+        /* Animation effects */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        .member-card {
+            animation: fadeIn 0.6s ease-out forwards;
+            animation-delay: calc(var(--i) * 0.1s);
+            opacity: 0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .member-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .logo {
+                width: 120px;
+                height: 120px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .member-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo-container {
+                flex-direction: column;
+            }
+            
+            .logo {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+            <h1>The AC Merchants</h1>
+            <p class="subtitle">Premium Trading Group for Animal Company VR</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="section" style="--i: 1">
+            <h2><i class="fas fa-info-circle"></i> About Us</h2>
+            <p class="about-text">
+                Welcome to <strong>The AC Merchants</strong>, the premier trading hub for Animal Company VR enthusiasts! 
+                We specialize in facilitating trades for both rare and common items within the game. 
+                Our community of dedicated traders works together to help everyone complete their collections and find their most desired items.
+            </p>
+            <p class="about-text">
+                Whether you're looking for that ultra-rare legendary item or just want to exchange some common duplicates, 
+                our members are here to help make fair and exciting trades happen!
+            </p>
+        </section>
+
+        <section class="section" style="--i: 2">
+            <h2><i class="fas fa-scroll"></i> Trading Rules</h2>
+            <ul class="rules-list">
+                <li>No real-money transactions allowed - in-game items only</li>
+                <li>Be respectful to all members of the community</li>
+                <li>Do not spam trade requests</li>
+                <li>Report any scammers immediately to the moderators</li>
+                <li>Trade codes are valid for 24 hours unless otherwise specified</li>
+                <li>Always confirm receipt of items after a successful trade</li>
+            </ul>
+        </section>
+
+        <section class="section" style="--i: 3">
+            <h2><i class="fas fa-exchange-alt"></i> Active Traders</h2>
+            <div class="member-grid">
+                <div class="member-card" style="--i: 1">
+                    <div class="member-name">sshhffrcrf</div>
+                    <div class="member-code">
+                        TRADE
+                        <button class="copy-btn" onclick="copyToClipboard('TRADE')">Copy</button>
+                    </div>
+                    <div class="trade-info">
+                        <div class="trade-section">
+                            <div class="trade-title">TRADING:</div>
+                            <p>
+                                <span class="rarity-all">Anything</span>, 
+                            </p>
+                        </div>
+                        <div class="trade-section">
+                            <div class="trade-title">LOOKING FOR:</div>
+                            <p>
+                                <span class="rarity-legendary">Cracker</span>, 
+                                <span class="rarity-epic">Any OG Backpack</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="member-card" style="--i: 2">
+                    <div class="member-name">StickMasterN</div>
+                    <div class="member-code">
+                        TRADE
+                        <button class="copy-btn" onclick="copyToClipboard('TRADE')">Copy</button>
+                    </div>
+                    <div class="trade-info">
+                        <div class="trade-section">
+                            <div class="trade-title">TRADING:</div>
+                            <p>
+                                <span class="rarity-all">Anything</span>, 
+                            </p>
+                        </div>
+                        <div class="trade-section">
+                            <div class="trade-title">LOOKING FOR:</div>
+                            <p>
+                                <span class="rarity-rare">Giant Box Fan (Aka Oversized Box Fan)</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="member-card" style="--i: 3">
+                    <div class="member-name">Coming Soon!</div>
+                    <div class="member-code">
+                        TRADE
+                        <button class="copy-btn" onclick="copyToClipboard('TRADE')">Copy</button>
+                    </div>
+                    <div class="trade-info">
+                        <div class="trade-section">
+                            <div class="trade-title">TRADING:</div>
+                            <p>
+                                <span class="rarity-epic">Coming Soon!</span>, 
+                                <span class="rarity-uncommon">Coming Soon!</span>, 
+                                <span class="rarity-common">Coming Soon!</span>
+                            </p>
+                        </div>
+                        <div class="trade-section">
+                            <div class="trade-title">LOOKING FOR:</div>
+                            <p>
+                                <span class="rarity-legendary">Coming Soon!</span>, 
+                                <span class="rarity-rare">Coming Soon!</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="member-card" style="--i: 4">
+                    <div class="member-name">Coming Soon!</div>
+                    <div class="member-code">
+                        TRADE
+                        <button class="copy-btn" onclick="copyToClipboard('TRADE')">Copy</button>
+                    </div>
+                    <div class="trade-info">
+                        <div class="trade-section">
+                            <div class="trade-title">TRADING:</div>
+                            <p>
+                                <span class="rarity-rare">Coming Soon!</span>, 
+                                <span class="rarity-rare">Coming Soon!</span>, 
+                                <span class="rarity-uncommon">Coming Soon!</span>
+                            </p>
+                        </div>
+                        <div class="trade-section">
+                            <div class="trade-title">LOOKING FOR:</div>
+                            <p>
+                                <span class="rarity-epic">Coming Soon!</span>, 
+                                <span class="rarity-uncommon">Coming Soon!</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="--i: 4">
+            <h2><i class="fas fa-gem"></i> Rarity Guide</h2>
+            <p style="margin-bottom: 20px;">Understanding item rarity is crucial for fair trading. Here's our color-coded system:</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                <div style="background-color: #2a2a2a; padding: 15px; border-radius: 8px; border-left: 4px solid #f39c12;">
+                    <h3 style="color: #f39c12; margin-bottom: 10px;">Legendary</h3>
+                    <p>Exceptionally rare items. Found in less than 1% of gameplay.</p>
+                </div>
+                <div style="background-color: #2a2a2a; padding: 15px; border-radius: 8px; border-left: 4px solid #9b59b6;">
+                    <h3 style="color: #9b59b6; margin-bottom: 10px;">Epic</h3>
+                    <p>Very rare items. Found in approximately 3-5% of gameplay.</p>
+                </div>
+                <div style="background-color: #2a2a2a; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db;">
+                    <h3 style="color: #3498db; margin-bottom: 10px;">Rare</h3>
+                    <p>Uncommon items. Found in approximately 10% of gameplay.</p>
+                </div>
+                <div style="background-color: #2a2a2a; padding: 15px; border-radius: 8px; border-left: 4px solid #4cd137;">
+                    <h3 style="color: #4cd137; margin-bottom: 10px;">Uncommon</h3>
+                    <p>Somewhat common items. Found in approximately 25% of gameplay.</p>
+                </div>
+                <div style="background-color: #2a2a2a; padding: 15px; border-radius: 8px; border-left: 4px solid #aaa;">
+                    <h3 style="color: #aaa; margin-bottom: 10px;">Common</h3>
+                    <p>Easily found items. Found in more than 50% of gameplay.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p> 2025 The AC Merchants | Animal Company VR Trading Group</p>
+            <p>Not affiliated with Animal Company VR</p>
+        </div>
+    </footer>
+
+    <script>
+        // Logo upload functionality
+        document.getElementById('logo-input').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const logoDisplay = document.getElementById('logo-display');
+                    logoDisplay.innerHTML = `<img src="${event.target.result}" alt="The AC Merchants Logo">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Copy trading code functionality
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Trading code copied to clipboard!');
+            }).catch(err => {
+                console.error('Could not copy text: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
